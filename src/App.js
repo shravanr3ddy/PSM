@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Header from "./components/header";
+import MainContent from "./components/mainContent";
+import Footer from "./components/footer";
+import InputComponent from "./components/inputComponent";
 
 function App() {
+  const [isResult, setIsResult] = useState(false);
+
+  const [similarItems, setSimilarItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Header setIsResult={setIsResult} isResult={isResult} />
+      {isResult ? (
+        <MainContent setIsResult={setIsResult} similarItems={similarItems} isLoading={isLoading}/>
+      ) : (
+        <InputComponent
+          setIsResult={setIsResult}
+          setSimilarItems={setSimilarItems}
+          setIsLoading={setIsLoading}
+        />
+      )}
+      <Footer />
     </div>
   );
 }
